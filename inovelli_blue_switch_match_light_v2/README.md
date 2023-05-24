@@ -16,4 +16,4 @@ Make sure you modify the array in attributes for the sensor named `list`. This i
 
 ## Thoughts
 
-I planned to create it as an all inclusive blueprint at some point, but i failed to trigger efficiently. This is very efficient currently and I didn't want to sacrafice that. I may add that code up if anyone wants to help fix it. Create an issue and lemme know if so.
+I planned to create it as an all inclusive blueprint at some point, but i failed to trigger efficiently. This is very efficient currently and I didn't want to sacrifice that. I may add that code up if anyone wants to help fix it. Create an issue and lemme know if so.
