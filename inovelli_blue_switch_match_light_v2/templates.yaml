@@ -1,0 +1,41 @@
+- sensor:
+
+  ##########
+  # Lights #
+  ##########
+
+  - name: Lights and Switches to match
+    unique_id: lights_and_switches_to_match
+    state: >
+      {{ this.attributes.to_change | count }}
+    attributes: 
+      list: >
+        {% set list = namespace(value=[]) %}
+        {% set list.value = list.value + [{ 'switch': 'light.back_yard_switch', 'light': 'light.back_yard_bistro_lights' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.bathroom_overhead', 'light': 'light.bathroom_overhead_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.bedroom_ceiling_fan_light', 'light': 'light.bedroom_ceiling_fan_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.closet', 'light': 'light.closet_lights' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.dining_room_overhead', 'light': 'light.dining_room_overhead_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.downstairs_bathroom', 'light': 'light.downstairs_bathroom_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.family_room_ceiling_fan_light', 'light': 'light.family_room_ceiling_fan_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.garage_entry', 'light': 'light.garage_entry_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.guest_bedroom', 'light': 'light.guest_bedroom_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.guest_office', 'light': 'light.guest_office_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.kitchen_divider', 'light': 'light.kitchen_divider_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.kitchen_overhead', 'light': 'light.kitchen_overhead_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.media_loft_overhead', 'light': 'light.media_loft_overhead_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.shower_switch', 'light': 'light.shower_light' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.stairs', 'light': 'light.stairs_hues' }] %}
+        {% set list.value = list.value + [{ 'switch': 'light.upstairs_hallway', 'light': 'light.upstairs_hallway_hues' }] %}
+        {{ list.value }}
+      to_change: >
+        {% set change = namespace(value=[]) %}
+        {% for key in this.attributes.list | default([], true) %}
+          {% set switch_brightness = state_attr(key['switch'],'brightness') | int(0) %}
+          {% set light_brightness = state_attr(key['light'],'brightness') | int(0) %}
+          {% if ((switch_brightness - light_brightness) | abs > 1 or (light_brightness == 0 and switch_brightness != 0)) %}
+            {% set newDict = { 'switch': key["switch"], 'light': key["light"], 'brightness': light_brightness, 'switch brightness': switch_brightness } %}
+            {% set change.value = change.value + [newDict] %}
+          {% endif %}
+        {% endfor %}
+        {{ change.value }}
