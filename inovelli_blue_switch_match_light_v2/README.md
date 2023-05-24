@@ -13,3 +13,7 @@ Make sure to add this to one of your automations.yaml files
 [Templates.yaml](https://github.com/finder39/home-assistant-blueprints/blob/master/inovelli_blue_switch_match_light_v2/templates.yaml)
 
 Make sure you modify the array in attributes for the sensor named `list`. This is what the automation will use when created
+
+## Thoughts
+
+I planned to create it as an all inclusive blueprint at some point, but i failed to trigger efficiently. This is very efficient currently and I didn't want to sacrafice that. I may add that code up if anyone wants to help fix it. Create an issue and lemme know if so.
