@@ -3,7 +3,7 @@
   description: 'Set the LED of all Inovelli blue switches to batch the state of their corresponding lights.'
   # source_url: https://github.com/finder39/home-assistant-blueprints/blob/master/inovelli_blue_switch_match_light_v2/inovelli_blue_switch_match_light_v2.yaml
   version: v2
-  mode: restart
+  mode: queued
   trigger:
   - platform: state
     entity_id: sensor.lights_and_switches_to_match
